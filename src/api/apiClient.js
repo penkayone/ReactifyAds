@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getToken } from '../services/auth';
 
 export const apiClient = axios.create({
-    baseURL: 'http://localhost:5000/api', // замени на реальный URL позже
+    baseURL: 'http://localhost:5000/api',
 });
 
 // Добавляем токен ко всем запросам, если пользователь авторизован

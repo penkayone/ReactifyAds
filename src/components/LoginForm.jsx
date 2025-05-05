@@ -1,32 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { apiClient } from '../api/apiClient';
-import { setToken } from '../services/auth';
+// src/components/LoginForm.jsx
+import React, { useState } from 'react'; // ✅ Добавлен useState
+import { useNavigate } from 'react-router-dom'; // ✅ Нужен для навигации
+import '../css/authorization.css';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const navigate = useNavigate(); // ✅ Теперь используется при успешном входе
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const response = await apiClient.post('/login', { email, password });
-            const { token } = response.data;
+        // Здесь будет логика отправки данных на бэкенд
+        console.log({ email, password });
 
-            setToken(token);
-            navigate('/dashboard');
-        } catch (err) {
-            setError('Login Error. Check login and password.');
-        }
+        // Пример перехода после входа (временно)
+        // localStorage.setItem('authToken', 'some-token');
+        navigate('/dashboard'); // После тестирования раскомментируй
     };
 
     return (
         <div className="form form-width">
-            <h2 className="form-title">Login</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <h2 className="form-title">Вход</h2>
 
             <form onSubmit={handleSubmit} className="full-width">
                 <input
@@ -40,7 +36,7 @@ const LoginForm = () => {
 
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Пароль"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -48,7 +44,7 @@ const LoginForm = () => {
                 />
 
                 <button type="submit" className="form-button">
-                    Log in
+                    Войти
                 </button>
             </form>
         </div>

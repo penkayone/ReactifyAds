@@ -1,38 +1,34 @@
+// src/components/RegisterForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiClient } from '../api/apiClient';
-import { setToken } from '../services/auth';
+import '../css/authorization.css';
 
 const RegisterForm = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const response = await apiClient.post('/register', { name, email, password });
-            const { token } = response.data;
+        // Логика регистрации
+        console.log({ name, email, password });
 
-            setToken(token);
-            navigate('/dashboard');
-        } catch (err) {
-            setError('Registration error');
-        }
+        // Пример перехода после регистрации
+        // localStorage.setItem('authToken', 'some-token');
+        navigate('/dashboard');
     };
 
     return (
         <div className="form form-width">
-            <h2 className="form-title">Register</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <h2 className="form-title">Регистрация</h2>
 
             <form onSubmit={handleSubmit} className="full-width">
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Имя"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -50,7 +46,7 @@ const RegisterForm = () => {
 
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Пароль"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -58,7 +54,7 @@ const RegisterForm = () => {
                 />
 
                 <button type="submit" className="form-button">
-                    Sign up
+                    Зарегистрироваться
                 </button>
             </form>
         </div>

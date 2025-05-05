@@ -1,3 +1,4 @@
+// src/pages/CreateAdPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,39 +32,47 @@ const CreateAdPage = () => {
     };
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Создать объявление</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Заголовок"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                    style={{ marginBottom: '10px', width: '100%', padding: '8px' }}
-                />
-                <br />
-                <textarea
-                    placeholder="Описание"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                    style={{ marginBottom: '10px', width: '100%', padding: '8px' }}
-                />
-                <br />
-                <input
-                    type="number"
-                    placeholder="Цена"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required
-                    style={{ marginBottom: '10px', width: '100%', padding: '8px' }}
-                />
-                <br />
-                <button type="submit" style={{ padding: '10px 20px' }}>
-                    Разместить объявление
-                </button>
-            </form>
+        <div className="page">
+            <div className="form form-width">
+                <h2 className="form-title">Создать объявление</h2>
+
+                <form onSubmit={handleSubmit} className="full-width">
+                    <input
+                        type="text"
+                        placeholder="Заголовок"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                        className="form-field"
+                    />
+
+                    <br />
+
+                    <textarea
+                        placeholder="Описание"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                        className="form-field"
+                        style={{ height: '100px' }} // можно оставить или удалить, если стиль уже в CSS
+                    />
+
+                    <br />
+
+                    <input
+                        type="number"
+                        placeholder="Цена"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
+                        className="form-field"
+                    />
+
+                    <button type="submit" className="form-button">
+                        Разместить объявление
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

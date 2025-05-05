@@ -1,3 +1,4 @@
+// src/pages/RegisterPage.jsx
 import React from 'react';
 import RegisterForm from '../components/RegisterForm';
 

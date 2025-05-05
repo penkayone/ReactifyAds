@@ -1,9 +1,11 @@
 // src/pages/HomePage.jsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import SearchForm from '../components/SearchForm';
 import Categories from '../components/Categories';
-import AdGallery from '../components/AdGallery'; // ✅ Теперь импортируем
+import AdGallery from '../components/AdGallery';
 import ServicesSection from '../components/ServicesSection';
+import LoginForm from '../components/LoginForm'; // ✅ Импортируем форму входа
+import RegisterForm from '../components/RegisterForm'; // ✅ Импортируем форму регистрации
 
 const HomePage = () => {
     return (
@@ -15,6 +17,10 @@ const HomePage = () => {
 
                 {/* Категории */}
                 <Categories />
+
+                {/* Формы входа и регистрации */}
+                <LoginForm />
+                <RegisterForm />
 
                 {/* Рекомендации */}
                 <AdGallery title="Популярные объявления" endpoint="/recommendations" />

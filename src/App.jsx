@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import RegisterPage from './pages/RegisterPage';
 import CreateAdPage from './pages/CreateAdPage';
-import HomePage from './pages/HomePage'; // ✅ Добавлен
+import AdsPage from './pages/AdsPage'; // ✅ Новый импорт
 import Navigation from './components/Navigation';
 
 // Приватный маршрут
@@ -17,16 +17,12 @@ const PrivateRoute = ({ children }) => {
 const App = () => {
     return (
         <Router>
-            {/* Меню отображается всегда */}
             <Navigation />
 
-            {/* Маршруты */}
             <Routes>
-                {/* Публичные маршруты */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<RegisterPage />} />
 
-                {/* Приватные маршруты */}
                 <Route
                     path="/dashboard"
                     element={
@@ -46,18 +42,11 @@ const App = () => {
                     }
                 />
 
-                {/* Главная страница объявлений */}
-                <Route
-                    path="/"
-                    element={
-                        <PrivateRoute>
-                            <HomePage />  {/* ✅ Теперь здесь HomePage, а не Dashboard */}
-                        </PrivateRoute>
-                    }
-                />
+                {/* Страница со списком объявлений */}
+                <Route path="/ads" element={<AdsPage />} />  {/* Можно сделать публичной */}
 
-                {/* Редирект на /dashboard */}
-                <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                {/* Главная страница */}
+                <Route path="/" element={<AdsPage />} />  {/* Теперь главная — это список объявлений */}
             </Routes>
         </Router>
     );
