@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sollgedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  sollge-api:
+    image: fodded/sollge
+    container_name: sollge-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - ./jwt:/app/jwt
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sollgedb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      JWT_PRIVATE_KEY: classpath:jwt/app.key
+      JWT_PUBLIC_KEY: classpath:jwt/app.pub.pem.pem
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
