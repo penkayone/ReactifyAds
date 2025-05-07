@@ -1,32 +1,31 @@
 // src/pages/AdsPage.jsx
-import React, { useEffect, useState } from 'react';
-import { apiClient } from '../api/apiClient';
-import AdCard from '../components/AdCard';
+import React, { useState, useEffect } from 'react'; // Добавь useEffect
+import apiClient from '../api/apiClient'; // Импорт по умолчанию
 
 const AdsPage = () => {
     const [ads, setAds] = useState([]);
 
-    useEffect(() => {
-        const fetchAds = async () => {
-            try {
-                const res = await apiClient.get('/ads');
-                setAds(res.data);
-            } catch (err) {
-                console.error('Не удалось загрузить объявления:', err);
-            }
-        };
+    const fetchAds = async () => {
+        try {
+            const response = await apiClient.get('/ads'); // Замени '/ads' на нужный эндпоинт
+            setAds(response.data);
+        } catch (error) {
+            console.error('Ошибка получения объявлений:', error);
+        }
+    };
 
+    useEffect(() => {
         fetchAds();
     }, []);
 
     return (
-        <div className="page">
-            <h2>Все объявления</h2>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+        <div>
+            <h1>Объявления</h1>
+            <ul>
                 {ads.map(ad => (
-                    <AdCard key={ad.id} ad={ad} />
+                    <li key={ad.id}>{ad.title}</li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
 };

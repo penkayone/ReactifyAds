@@ -1,53 +1,44 @@
 // src/components/LoginForm.jsx
-import React, { useState } from 'react'; // ✅ Добавлен useState
-import { useNavigate } from 'react-router-dom'; // ✅ Нужен для навигации
-import '../css/authorization.css';
+import React, { useState } from 'react';
+import apiClient from '../api/apiClient'; // Импорт без фигурных скобок
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const navigate = useNavigate(); // ✅ Теперь используется при успешном входе
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Здесь будет логика отправки данных на бэкенд
-        console.log({ email, password });
+        try {
+            const response = await apiClient.post('/auth/login', {
+                username,
+                password
+            });
 
-        // Пример перехода после входа (временно)
-        // localStorage.setItem('authToken', 'some-token');
-        navigate('/dashboard'); // После тестирования раскомментируй
+            console.log('Вход успешен:', response.data);
+        } catch (error) {
+            console.error('Ошибка входа:', error);
+        }
     };
 
     return (
-        <div className="form form-width">
-            <h2 className="form-title">Вход</h2>
-
-            <form onSubmit={handleSubmit} className="full-width">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="form-field"
-                />
-
-                <input
-                    type="password"
-                    placeholder="Пароль"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="form-field"
-                />
-
-                <button type="submit" className="form-button">
-                    Войти
-                </button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                placeholder="Имя пользователя"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <br />
+            <input
+                type="password"
+                placeholder="Пароль"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
+            <button type="submit">Войти</button>
+        </form>
     );
 };
 
