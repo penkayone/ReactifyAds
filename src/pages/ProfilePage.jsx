@@ -39,10 +39,13 @@ const ProfilePage = () => {
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Дата регистрации:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
 
-                <button onClick={() => {
-                    localStorage.removeItem('authToken');
-                    window.location.href = '/login';
-                }} className="form-button">
+                <button
+                    onClick={() => {
+                        localStorage.removeItem('authToken');
+                        window.location.href = '/login';
+                    }}
+                    className="form-button"
+                >
                     Выйти
                 </button>
             </div>

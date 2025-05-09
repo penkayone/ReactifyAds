@@ -1,5 +1,6 @@
 // src/components/RegisterForm.jsx
 import React, { useState } from 'react';
+import '../css/authorization.css';
 import { apiClient } from '../api/apiClient'; // Импортируем из файла выше
 
 const RegisterForm = () => {
@@ -10,6 +11,8 @@ const RegisterForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log('Отправляю данные:', { username, email, password }); // Лог данных
 
         try {
             const response = await apiClient.post('/auth/register', {

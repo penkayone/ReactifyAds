@@ -1,14 +1,17 @@
 // src/components/LoginForm.jsx
 import React, { useState } from 'react';
+import '../css/authorization.css';
 import { apiClient } from '../api/apiClient';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             const response = await apiClient.post('/auth/login', {
@@ -18,10 +21,12 @@ const LoginForm = () => {
 
             localStorage.setItem('authToken', response.data.token);
             setMessage('Вход выполнен!');
-            window.location.href = '/';
+            window.location.href = '/profile';
         } catch (error) {
             console.error('Ошибка входа:', error);
             setMessage('Неверный логин или пароль');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -35,6 +40,7 @@ const LoginForm = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                disabled={loading}
                 className="form-field"
             />
             <br />
@@ -45,11 +51,18 @@ const LoginForm = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={loading}
                 className="form-field"
             />
             <br />
 
-            <button type="submit" className="form-button">Войти</button>
+            <button type="submit" className="form-button" disabled={loading}>
+                {loading ? (
+                    <span className="spinner"></span>
+                ) : (
+                    'Войти'
+                )}
+            </button>
 
             {message && <p style={{ color: 'red' }}>{message}</p>}
         </form>

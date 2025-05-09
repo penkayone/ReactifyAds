@@ -2,11 +2,11 @@
 import axios from 'axios';
 
 export const apiClient = axios.create({
-    baseURL: 'https://ranject.cc:8080/api ',
+    baseURL: 'http://ranject.cc:8080/api',
     withCredentials: true,
 });
 
-// Добавляем токен ко всем запросам, если пользователь авторизован
+// Добавляем токен ко всем запросам
 apiClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('authToken');
     if (token) {
