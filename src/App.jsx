@@ -9,17 +9,13 @@ const App = () => {
     return (
         <Router>
             {/* Меню */}
-            <nav style={{
-                padding: '10px',
-                backgroundColor: '#222',
-                display: 'flex',
-                justifyContent: 'center',
-                gap: '20px'
-            }}>
-                <Link to="/">Главная</Link>
-                <Link to="/add-ad">Добавить объявление</Link>
-                <Link to="/login">Войти</Link>
-                <Link to="/register">Регистрация</Link>
+            <nav className="navbar">
+                <ul className="nav-list">
+                    <li><Link to="/">Главная</Link></li>
+                    <li><Link to="/add-ad">Добавить объявление</Link></li>
+                    <li><Link to="/login">Войти</Link></li>
+                    <li><Link to="/register">Регистрация</Link></li>
+                </ul>
             </nav>
 
             {/* Страницы */}
