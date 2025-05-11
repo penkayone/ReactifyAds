@@ -20,17 +20,18 @@ const LoginForm = () => {
                 password
             });
 
-            // Сохраняем токен
             localStorage.setItem('authToken', response.data.token);
             setMessage('Вход выполнен! Перенаправление...');
-
-            // Переходим на профиль
             setTimeout(() => {
                 window.location.href = '/profile';
             }, 1000);
         } catch (error) {
-            console.error('Ошибка входа:', error);
-            setMessage('Неверное имя пользователя или пароль');
+            console.error('Ошибка входа:', error.response?.data || error.message);
+            if (error.response && error.response.status === 401) {
+                setMessage('Неверное имя пользователя или пароль');
+            } else {
+                setMessage('Не удалось войти. Попробуйте снова.');
+            }
         } finally {
             setLoading(false);
         }
