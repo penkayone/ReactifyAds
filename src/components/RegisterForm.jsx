@@ -4,8 +4,8 @@ import '../css/authorization.css';
 import { apiClient } from '../api/apiClient';
 
 const RegisterForm = () => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setEmail] = useState('');
+    const [email, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
@@ -31,10 +31,8 @@ const RegisterForm = () => {
             console.error('Ошибка регистрации:', error.response?.data || error.message);
             if (error.response && error.response.status === 409) {
                 setMessage('Пользователь с таким именем или email уже существует');
-            } else if (error.response && error.response.status === 400) {
-                setMessage('Неверные данные. Проверьте ввод');
             } else {
-                setMessage('Не удалось зарегистрироваться. Попробуйте снова');
+                setMessage('Не удалось зарегистрироваться. Попробуйте снова.');
             }
         } finally {
             setLoading(false);

@@ -22,13 +22,8 @@ const ProfilePage = () => {
         fetchUser();
     }, []);
 
-    if (loading) {
-        return <p>Загрузка...</p>;
-    }
-
-    if (error) {
-        return <p style={{ color: 'red' }}>{error}</p>;
-    }
+    if (loading) return <p>Загрузка...</p>;
+    if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
     return (
         <div className="page">
