@@ -34,8 +34,17 @@ const App = () => {
                     }
                 />
 
+                <Route
+                    path="/add-ad"
+                    element={
+                        <PrivateRoute>
+                            <h2>Страница добавления объявления</h2>
+                        </PrivateRoute>
+                    }
+                />
+
+                {/* Главная страница */}
                 <Route path="/" element={<LoginPage />} />
-                <Route path="/add-ad" element={<h2>Страница добавления объявления</h2>} />
             </Routes>
         </Router>
     );
